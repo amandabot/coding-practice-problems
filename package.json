@@ -6,25 +6,12 @@
   "license": "MIT",
   "scripts": {
     "tsc": "npm run cleanDir && tsc -w",
-    "cleanDir": "if exist tmp rd /s /q tmp",
-    "all": "protractor tmp/protractor.config.js",
-    "debug": "node --inspect-brk ./node_modules/.bin/protractor asyncAwait/protractor.config.js",
-    "start": "node_modules/.bin/webdriver-manager start",
-    "update": "webdriver-manager update",
-    "process": "node ../ofx-creator/tmp/main.js",
-    "direct": "node tmp/direct-ofx-requests/request-ofx-documents.js",
-    "full": "npm run all && npm run direct && npm run process"
+    "cleanDir": "if exist tmp rd /s /q tmp"
   },
   "dependencies": {
-    "banking": "1.2.0",
-    "jasmine": "3.6.1",
-    "moment": "2.27.0",
-    "protractor": "7.0.0",
     "typescript": "3.9.7"
   },
   "devDependencies": {
-    "@types/jasmine": "3.5.13",
-    "@types/jasminewd2": "2.0.8",
     "@types/node": "14.6.0",
     "ts-node": "9.0.0",
     "tslint": "6.1.3"
