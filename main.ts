@@ -1,3 +1,3 @@
-import { runTests } from './src/leetcode/1480-running-sums';
+import { runTests } from './src/leetcode/315-count-smaller-numbers';
 
 runTests();
