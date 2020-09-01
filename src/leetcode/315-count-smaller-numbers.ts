@@ -21,16 +21,17 @@ function countLesserNodeValues(value: number, node: TreeNode): number {
     let rightCount = 0;
     let nodeCount = 0;
 
+    if (node.leftNode !== null) {
+        leftCount = countLesserNodeValues(value, node.leftNode);
+    }
+
     if (node.value < value) {
         nodeCount = node.count;
+        console.log(`visited: ${node.value}`);
 
         if (node.rightNode !== null) {
             rightCount += countLesserNodeValues(value, node.rightNode);
         }
-    }
-
-    if (node.leftNode !== null) {
-        leftCount = countLesserNodeValues(value, node.leftNode);
     }
 
     return leftCount + rightCount + nodeCount;
@@ -75,7 +76,8 @@ function countSmaller(nums: number[]): number[] {
 
 export function runTests(): void {
     const inputs = [
-        [5, 2, 6, 1]
+        [5, 2, 6, 1],
+        [300, 150, 200, 30, 10, 20, 100]
     ];
 
     inputs.forEach(input => {
