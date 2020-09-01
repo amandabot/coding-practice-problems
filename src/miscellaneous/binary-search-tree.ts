@@ -48,6 +48,20 @@ function inOrderTraversal(node: TreeNode, traversedValues: number[]): number[] {
     return traversedValues;
 }
 
+function reverseOrderTraversal(node: TreeNode, traversedValues: number[]): number[] {
+    if (node.rightNode !== null) {
+        reverseOrderTraversal(node.rightNode, traversedValues);
+    }
+
+    traversedValues.push(node.value);
+
+    if (node.leftNode !== null) {
+        reverseOrderTraversal(node.leftNode, traversedValues);
+    }
+
+    return traversedValues;
+}
+
 function preOrderTraversal(node: TreeNode, traversedValues: number[]): number[] {
     traversedValues.push(node.value);
 
@@ -88,6 +102,9 @@ export function runTests(): void {
 
         const inOrder = inOrderTraversal(rootNode, []);
         console.log(`inOrder: ${inOrder}`);
+
+        const reverseOrder = reverseOrderTraversal(rootNode, []);
+        console.log(`reverseOrder: ${reverseOrder}`);
 
         const preOrder = preOrderTraversal(rootNode, []);
         console.log(`preOrder: ${preOrder}`);
