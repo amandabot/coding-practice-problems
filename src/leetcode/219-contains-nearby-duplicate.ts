@@ -1,10 +1,9 @@
 function containsNearbyDuplicate(nums: number[], k: number): boolean {
-    const checkedIndices = new Map<number, number[]>();
+    const lastMatches = new Map<number, number>();
     return nums.some((num, index) => {
-        const matches = checkedIndices.get(num) ?? [];
-        const hasDuplicateInRange = matches.some(match => Math.abs(match - index) <= k);
-        matches.push(index);
-        checkedIndices.set(num, matches);
+        const lastMatch = lastMatches.get(num) ?? Number.MIN_SAFE_INTEGER;
+        const hasDuplicateInRange = Math.abs(lastMatch - index) <= k;
+        lastMatches.set(num, index);
 
         return hasDuplicateInRange;
     });
