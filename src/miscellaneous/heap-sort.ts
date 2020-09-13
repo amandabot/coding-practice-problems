@@ -2,15 +2,15 @@ class MaxHeap {
     values: number[];
     size = 0;
 
-    constructor(values: number[]) {
+    constructor(values?: number[]) {
         this.values = values ?? new Array<number>();
         this.size = this.values.length;
     }
 
-    heapify(length: number, previousRoot: number): number[] {
-        let largest = previousRoot;
-        const left = (2 * previousRoot) + 1;
-        const right = (2 * previousRoot) + 2;
+    sinkDownIndex(length: number, index: number): number[] {
+        let largest = index;
+        const left = (2 * index) + 1;
+        const right = (2 * index) + 2;
 
         if (left < length && this.values[left] > this.values[largest]) {
             largest = left;
@@ -20,18 +20,29 @@ class MaxHeap {
             largest = right;
         }
 
-        if (largest != previousRoot) {
-            swapValues(this.values, previousRoot, largest);
-            this.heapify(length, largest);
+        if (largest != index) {
+            this.swapValues(index, largest);
+            this.sinkDownIndex(length, largest);
         }
 
         return this.values;
     }
 
+    bubbleUpIndex(index: number): void {
+        let currentIndex = index;
+        let parentIndex = Math.floor((currentIndex - 1) / 2);
+
+        while (currentIndex > 0 && this.values[parentIndex] < this.values[currentIndex]) {
+            this.swapValues(currentIndex, parentIndex);
+            currentIndex = parentIndex;
+            parentIndex = Math.floor((parentIndex - 1) / 2);
+        }
+    }
+
     insert(value: number): void {
-        this.values[this.size] = value;
+        this.values.push(value);
         this.size += 1;
-        this.heapify(this.size, this.size - 1);
+        this.bubbleUpIndex(this.size - 1);
     }
 
     deleteValue(value: number): void {
@@ -40,15 +51,23 @@ class MaxHeap {
             this.values[index] = this.values[this.size - 1];
             this.values.pop();
             this.size -= 1;
-            this.heapify(this.size, index);
+            this.sinkDownIndex(this.size, index);
         }
     }
 
     sort(): number[] {
         for (let index = this.size - 1; index >= 0; index -= 1) {
-            swapValues(this.values, 0, index);
-            this.heapify(index, 0);
+            this.swapValues(0, index);
+            this.sinkDownIndex(index, 0);
         }
+
+        return this.values;
+    }
+
+    swapValues(index1: number, index2: number): number[] {
+        const temp = this.values[index1];
+        this.values[index1] = this.values[index2];
+        this.values[index2] = temp;
 
         return this.values;
     }
@@ -83,7 +102,7 @@ class MinHeap {
         let parentIndex = Math.floor(currentIndex / 2);
 
         while (currentIndex > 0 && this.values[parentIndex] > this.values[currentIndex]) {
-            swapValues(this.values, currentIndex, parentIndex);
+            this.swapValues(currentIndex, parentIndex);
             currentIndex = parentIndex;
             parentIndex = Math.floor(parentIndex / 2);
         }
@@ -103,27 +122,27 @@ class MinHeap {
         }
 
         if (smallest != index) {
-            swapValues(this.values, index, smallest);
+            this.swapValues(index, smallest);
             this.sinkDownIndex(length, smallest);
         }
     }
 
     sort(): number[] {
         for (let index = this.size - 1; index >= 0; index -= 1) {
-            swapValues(this.values, 0, index);
+            this.swapValues(0, index);
             this.sinkDownIndex(index, 0);
         }
 
         return this.values;
     }
-}
 
-function swapValues(array: number[], index1: number, index2: number): number[] {
-    const temp = array[index1];
-    array[index1] = array[index2];
-    array[index2] = temp;
+    swapValues(index1: number, index2: number): number[] {
+        const temp = this.values[index1];
+        this.values[index1] = this.values[index2];
+        this.values[index2] = temp;
 
-    return array;
+        return this.values;
+    }
 }
 
 export function runTests(): void {
@@ -161,9 +180,9 @@ export function runTests(): void {
             console.log(minHeap.values);
         }
 
-        const maxHeap = new MaxHeap(input.slice());
-        for (let index = (maxHeap.size / 2) - 1; index >= 0; index -= 1) {
-            maxHeap.heapify(maxHeap.size, Math.floor(index));
+        const maxHeap = new MaxHeap();
+        for (let index = 0; index < input.length; index += 1) {
+            maxHeap.insert(input[index]);
         }
         console.log('As max heap');
         console.log(maxHeap.values);
