@@ -4,77 +4,32 @@
 let memo: { [key: string]: number } = {};
 
 function numDecodings(s: string): number {
-    if (s.length === 0) {
+    memo = {};
+
+    return countDecodings(s, s.length);
+}
+
+function countDecodings(fullInput: string, charsFromEnd: number): number {
+    if (charsFromEnd === 0) {
         return 1;
     }
 
-    if (s.length === 1) {
-        return s[0] == '0' ? 0 : 1;
-    }
-
-    // any multiple of 10 greater than 20 is not a valid letter
-    if (/[3-9][0]/.test(s)) {
+    const startIndex = fullInput.length - charsFromEnd;
+    if (fullInput[startIndex] === '0') {
         return 0;
     }
 
-    memo = {};
-
-    const value = countDecodings(s);
-
-    Object.keys(memo).forEach(key => {
-        console.log(`key: ${key}, value: ${memo[key]}`);
-    });
-    return value;
-}
-
-function countDecodings(s: string): number {
-    if (s.length === 0) {
-        return 0;
+    const memoKey = fullInput.substr(startIndex);
+    if (memo[memoKey] !== undefined) {
+        return memo[memoKey];
     }
 
-    if (memo[s] !== undefined) {
-        return memo[s];
+    let result = countDecodings(fullInput, charsFromEnd - 1);
+    if (charsFromEnd >= 2 && Number.parseInt(fullInput.substr(startIndex, 2), 10) <= 26) {
+        result += countDecodings(fullInput, charsFromEnd - 2);
     }
-
-    if (s.length === 1) {
-        memo[s] = countSingle(s);
-        return memo[s];
-    }
-
-    if (s.length === 2) {
-        memo[s] = countPair(s);
-        return memo[s];
-    }
-
-    const twoValue = Number.parseInt(s.substr(0, 2), 10);
-    const isTwoValid = twoValue <= 26 && s[0] !== '0';
-    const countOneRemainder = countDecodings(s.substr(1));
-    memo[s.substr(1)] = countOneRemainder;
-    const countTakeOne = countDecodings(s.substr(0, 1)) * countOneRemainder;
-
-    const countTwoRemainder = countDecodings(s.substr(2));
-    memo[s.substr(2)] = countTwoRemainder;
-    const countTakeTwo = (isTwoValid ? 1 : 0) * countTwoRemainder;
-    return countTakeOne + countTakeTwo;
-}
-
-function countSingle(s: string): number {
-    return s[0] !== '0' ? 1 : 0;
-}
-
-function countPair(s: string): number {
-    let amount = 2;
-    const value = Number.parseInt(s, 10);
-    if (value > 26 || s[0] === '0') {
-        // two-digit fails
-        amount--;
-    }
-
-    if (s[0] === '0' || s[1] === '0') {
-        // single digit fails
-        amount--;
-    }
-    return amount;
+    memo[fullInput] = result;
+    return result;
 }
 
 export function runTests(): void {
