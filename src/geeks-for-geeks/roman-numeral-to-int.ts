@@ -1,7 +1,7 @@
 // Time O(n) iterate over each character of the string
 // Space O(1) constant use of variables regardless of input
+// We will assume the input is non-null and a valid Roman numeral (uppercase, properly formatted, [1,3999])
 function romanNumeralToInt(input: string): number {
-    // we will assume the input is non-null and a valid Roman numeral (uppercase, properly formatted, [1,3999])
     let runningTotal = 0;
     const conversionTable = new Map<string, number>([
         ['I', 1],
@@ -10,7 +10,13 @@ function romanNumeralToInt(input: string): number {
         ['L', 50],
         ['C', 100],
         ['D', 500],
-        ['M', 1000]
+        ['M', 1000],
+        ['N', 5000],
+        ['H', 10000],
+        ['P', 50000],
+        ['G', 100000],
+        ['F', 500000],
+        ['S', 1000000],
     ]);
 
     let sumOfSubset = 0;
@@ -48,8 +54,12 @@ function romanNumeralToInt(input: string): number {
 
 export function runTests(): void {
     const inputs = [
-        'MCMXII', // 1912
-        'MM', // 2000,
+        // 'VL', // 45 (invalid format)
+        // 'VC', // 95 (invalid format)
+        // 'CLC', // 150 (invalid format)
+        // 'DM', // 500 (invalid format)
+        // 'LM', // 950 (invalid format)
+        // 'VM', // 995 (invalid format)
         'I', // 1
         'II', // 2
         'III', // 3
@@ -62,19 +72,55 @@ export function runTests(): void {
         'X', // 10
         'XX', // 20
         'XL', // 40
+        'XLV', // 45
         'L', // 50
         'LX', // 60
         'XC', // 90
+        'XCV', // 95
         'C', // 100
         'CX', // 110
+        'CL', // 150
         'CD', // 400
+        'CDXCIX', // 499
         'D', // 500
         'CM', // 900
+        'CML', // 950
+        'CMXCV', // 995
         'M', // 1000
-        'MMMCMXCIX', // 3999
-        'MDCCCCX', // 1910
-        'CDXCIX', // 499
         'MCXI', // 1111
+        'MDCCCCX', // 1910
+        'MCMXII', // 1912
+        'MM', // 2000
+        'MMMCMXCIX', // 3999
+        // Extended numbers
+        'MN', // 4000
+        'N', // 5000
+        'NM', // 6000
+        'NMM', // 7000
+        'NMMM', // 8000
+        'MH', // 9000
+        'H', // 10000
+        'HH', // 20000
+        'HHH', // 30000
+        'HP', // 40000
+        'P', // 50000
+        'PH', // 60000
+        'PHH', // 70000
+        'PHHH', // 80000
+        'HG', // 90000
+        'G', // 100000
+        'GG', // 200000
+        'GGG', // 300000
+        'GF', // 400000
+        'F', // 500000
+        'FG', // 600000
+        'FGG', // 700000
+        'FGGG', // 800000
+        'GS', // 900000
+        'S', // 1000000
+        'SGHMCXI', // 1111111
+        'SSSFGGGPHHHNMMMDCCCLXXXVIII', // 3888888
+        'SSSGSHGMHCMXCIX', // 3999999
     ];
 
     inputs.forEach(input => {
