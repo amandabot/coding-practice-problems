@@ -1,4 +1,4 @@
-// Time O(log base 10 (n)) for every power of 10 in the digit, we will require log(n) + 1 operations
+// Time O(log10(n)) for every power of 10 in the digit, we will require floor(log10(n)) + 1 operations
 // Space O(1) - worst number is 27 chars long, but output is constrained to [1,27]
 // We will assume the input a positive integer from [1,3999999]
 function intToRomanNumeral(input: number): string {
