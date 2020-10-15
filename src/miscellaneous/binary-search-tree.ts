@@ -34,6 +34,7 @@ function insertNode(value: number, rootNode: TreeNode): void {
     }
 }
 
+// sorted order of nodes asc
 function inOrderTraversal(node: TreeNode, traversedValues: number[]): number[] {
     if (node.leftNode !== null) {
         inOrderTraversal(node.leftNode, traversedValues);
@@ -48,6 +49,7 @@ function inOrderTraversal(node: TreeNode, traversedValues: number[]): number[] {
     return traversedValues;
 }
 
+// sorted order of nodes desc
 function reverseOrderTraversal(node: TreeNode, traversedValues: number[]): number[] {
     if (node.rightNode !== null) {
         reverseOrderTraversal(node.rightNode, traversedValues);
@@ -62,6 +64,7 @@ function reverseOrderTraversal(node: TreeNode, traversedValues: number[]): numbe
     return traversedValues;
 }
 
+// Order the nodes were inserted; Can make a copy of the tree this way
 function preOrderTraversal(node: TreeNode, traversedValues: number[]): number[] {
     traversedValues.push(node.value);
 
@@ -76,6 +79,7 @@ function preOrderTraversal(node: TreeNode, traversedValues: number[]): number[] 
     return traversedValues;
 }
 
+// tree deletion without leaking memory
 function postOrderTraversal(node: TreeNode, traversedValues: number[]): number[] {
     if (node.leftNode !== null) {
         postOrderTraversal(node.leftNode, traversedValues);
