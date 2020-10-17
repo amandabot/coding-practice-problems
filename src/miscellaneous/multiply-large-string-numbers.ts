@@ -46,6 +46,67 @@ function multiplyStringifiedNumbers(number1: string, number2: string): string {
     return results.reverse().join('');
 }
 
+
+// approach 2: you can calculate each power of 10 place at a time.
+/*
+    both the top and bottom N start at 0
+    Iteration
+    - the n starting position for the top is the 10^n position you are calculating for
+    - calculate that position, and decrement the top N; increment the bottom N
+    - when either the top number reaches the 1s place or the bottom number reaches the highest digit,
+        stop the current iteration
+        - move the top number to the 10 ^ (n+1) position and reset the bottom at 10^0
+    - when you have no more numbers to iterate backward from on the top number, move the bottom digit start point
+    to n + 1 and repeat the iterations until the bottom number reaches the first digit and completes those calculations
+*/
+function alternateApproach(number1: string, number2: string): string {
+    // // Space O(n * m)
+    // const results = [];
+    // const topNumber = number1.split(/|/).reverse();
+    // const bottomNumber = number2.split(/|/).reverse();
+
+    // const indexOffset = number1.length + number2.length - 2;
+    // // Time O(n * m)
+    // // We have to start at the end of the string since the rightmost value is the smallest
+    // for (let bottomStartIndex = 0; bottomStartIndex < number1.length; bottomStartIndex++) {
+    //     let topStart = number2.length - 1;
+    //     let topIndex = number2.length - 1;
+    //     let bottomIndex = bottomStartIndex;
+
+    //     while (topIndex > 0) {
+    //         const powerOfTen = indexOffset - (bottomStartIndex + index2);
+    //     }
+    //     const digitOne = Number.parseInt(number1[bottomStartIndex], 10);
+
+    //     for (let index2 = number2.length - 1; index2 >= 0; index2--) {
+    //         const digitTwo = Number.parseInt(number2[index2], 10);
+    //         const result = digitOne * digitTwo;
+    //         const powerOfTen = indexOffset - (bottomStartIndex + index2);
+    //         results[powerOfTen] = (results[powerOfTen] || 0) + result;
+    //     }
+    // }
+
+    // // Time O(n) - iterate through each element once
+    // for (let index = 0; index < results.length; index++) {
+    //     let remainder = results[index];
+    //     // The value for this power of ten is included in remainder,
+    //     // so we can clear the value and treat it like an overflow
+    //     results[index] = 0;
+    //     let powerOfTenIndex = index;
+
+    //     while (remainder > 0) {
+    //         const valueForThisPowerOfTen = remainder % 10;
+    //         results[powerOfTenIndex] = (results[powerOfTenIndex] || 0) + valueForThisPowerOfTen;
+    //         remainder = Math.floor(remainder / 10);
+    //         powerOfTenIndex++;
+    //     }
+    // }
+
+    // // Time O(n)
+    // return results.reverse().join('');
+    return '';
+}
+
 function superEasyVersion(number1: string, number2: string): string {
     return (BigInt(number1) * BigInt(number2)).toString();
 }
@@ -87,7 +148,7 @@ export function runTests(): void {
     ];
 
     inputs.forEach(input => {
-        const output = multiplyStringifiedNumbers(input[0], input[1]);
+        const output = alternateApproach(input[0], input[1]);
         console.log(`${output}`);
     });
 }
