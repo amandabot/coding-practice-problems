@@ -1,38 +1,4 @@
-
-class TreeNode {
-    constructor(value: number) {
-        this.value = value;
-        this.leftNode = null;
-        this.rightNode = null;
-    }
-
-    value: number;
-    leftNode: TreeNode | null;
-    rightNode: TreeNode | null;
-}
-
-function insertNode(value: number, rootNode: TreeNode): void {
-    if (value === rootNode.value) {
-        return;
-    }
-
-    if (rootNode.value < value) {
-        if (rootNode.rightNode === null) {
-            rootNode.rightNode = new TreeNode(value);
-        }
-        else {
-            insertNode(value, rootNode.rightNode);
-        }
-    }
-    else if (rootNode.value > value) {
-        if (rootNode.leftNode === null) {
-            rootNode.leftNode = new TreeNode(value);
-        }
-        else {
-            insertNode(value, rootNode.leftNode);
-        }
-    }
-}
+import { insertNode, TreeNode } from '../data-structures/binary-search-tree';
 
 // sorted order of nodes asc
 function inOrderTraversal(node: TreeNode, traversedValues: number[]): number[] {
@@ -94,13 +60,37 @@ function postOrderTraversal(node: TreeNode, traversedValues: number[]): number[]
     return traversedValues;
 }
 
+function levelTraversal(node: TreeNode): number[] {
+    const traversedValues = [];
+
+    const queue = new Array<TreeNode>();
+    queue.push(node);
+
+    while (queue.length > 0) {
+        const currentNode = queue.shift();
+        traversedValues.push(currentNode.value);
+
+        if (currentNode.leftNode !== null) {
+            queue.push(currentNode.leftNode);
+        }
+
+        if (currentNode.rightNode !== null) {
+            queue.push(currentNode.rightNode);
+        }
+    }
+
+    return traversedValues;
+}
+
 export function runTests(): void {
     const inputs = [
-        [100, 20, 10, 30, 200, 150, 300]
+        [100, 20, 10, 30, 200, 150, 300],
+        [1, 2, 3, 4]
     ];
 
     inputs.forEach(input => {
         console.log(`original: ${input}`);
+
         const rootNode = new TreeNode(input.shift());
         input.forEach(value => insertNode(value, rootNode));
 
@@ -115,5 +105,8 @@ export function runTests(): void {
 
         const postOrder = postOrderTraversal(rootNode, []);
         console.log(`postOrder: ${postOrder}`);
+
+        const levelOrder = levelTraversal(rootNode);
+        console.log(`levelOrder: ${levelOrder}`);
     });
 }
