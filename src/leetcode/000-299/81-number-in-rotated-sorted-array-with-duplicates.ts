@@ -65,7 +65,7 @@ function binarySearchIndex(target: number, nums: number[], start: number, end: n
 // Space: O(1)
 function findOriginalEndIndex(nums: number[], start: number, end: number): number {
     const rangeLength = end - start + 1;
-    const midpoint = start + Math.floor(rangeLength / 2);
+    const midpoint = start + Math.floor((end - start) / 2);
 
     if (nums[midpoint] > nums[midpoint + 1]) {
         return midpoint;
