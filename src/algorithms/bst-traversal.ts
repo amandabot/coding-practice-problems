@@ -1,4 +1,4 @@
-import { insertNode, TreeNode } from '@app/data-structures/binary-search-tree';
+import { insertNode, TreeNode } from '../data-structures/binary-search-tree';
 
 // sorted order of nodes asc
 function inOrderTraversal(node: TreeNode, traversedValues: number[]): number[] {

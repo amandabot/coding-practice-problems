@@ -1,5 +1,5 @@
-import { ListNode } from '@app/data-structures/linked-list';
-import { MaxHeap } from '@app/data-structures/max-heap';
+import { ListNode } from '../../data-structures/linked-list';
+import { MaxHeap } from '../../data-structures/max-heap';
 
 function mergeLists(node1: ListNode | null, node2: ListNode | null): ListNode | null {
     const rootNode = new ListNode();

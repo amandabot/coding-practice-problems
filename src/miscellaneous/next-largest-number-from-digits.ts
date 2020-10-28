@@ -1,6 +1,6 @@
 // http://blog.gainlo.co/index.php/2017/01/20/arrange-given-numbers-to-form-the-biggest-number-possible/
 
-import { swapValues } from '@shared/array';
+import { swapValues } from '../shared/array';
 
 function nextLargestNumber(original: number): number {
     const digits = splitNumberIntoDigits(original);
