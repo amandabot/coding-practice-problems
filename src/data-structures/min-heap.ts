@@ -1,4 +1,4 @@
-class MinHeap {
+export class MinHeap {
     values: number[];
     size = 0;
 

@@ -1,4 +1,4 @@
-class MaxHeap {
+export class MaxHeap {
     values: number[];
     size = 0;
 
