@@ -1,5 +1,5 @@
 function quicksort(numbers: Array<number>, min: number, max: number): Array<number> {
-    if(min < max){
+    if (min < max) {
         const partitionIndex = partition(numbers, min, max);
 
         quicksort(numbers, min, partitionIndex - 1);
@@ -13,8 +13,8 @@ function partition(numbers: Array<number>, min: number, max: number): number {
     const pivot = numbers[max];
     let headIndex = min - 1;
 
-    for(let tailIndex = min; tailIndex <= max; tailIndex += 1){
-        if(numbers[tailIndex] < pivot){
+    for (let tailIndex = min; tailIndex < max; tailIndex += 1) {
+        if (numbers[tailIndex] < pivot) {
             headIndex += 1;
             swapValuesAt(numbers, headIndex, tailIndex);
         }
