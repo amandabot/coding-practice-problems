@@ -12,7 +12,16 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@app/*": [
+        "src/*"
+      ]
+    }
   },
   "exclude": [
     "node_modules"
