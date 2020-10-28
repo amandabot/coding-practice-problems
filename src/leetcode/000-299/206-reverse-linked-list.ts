@@ -1,10 +1,13 @@
-class ListNode {
-    val: number
-    next: ListNode | null
-    constructor(val?: number, next?: ListNode | null) {
-        this.val = (val === undefined ? 0 : val)
-        this.next = (next === undefined ? null : next)
+import { ListNode } from '../../data-structures/linked-list';
+
+function reverseListHead(head: ListNode | null, newHead: ListNode | null): ListNode | null {
+    if (head === null) {
+        return newHead;
     }
+
+    const next = head.next;
+    head.next = newHead;
+    return reverseListHead(next, head)
 }
 
 function reverseListAlt(head: ListNode | null): ListNode | null {
@@ -36,14 +39,17 @@ function reverseList(head: ListNode | null): ListNode | null {
     }
 }
 
-function reverseListHead(head: ListNode | null, newHead: ListNode | null): ListNode | null {
-    if (head === null) {
-        return newHead;
+function reverseListIterative(head: ListNode | null): ListNode | null {
+    let newHead = null;
+    let currentNode = head;
+    while (currentNode !== null) {
+        const nextNode = currentNode.next;
+        currentNode.next = newHead;
+        newHead = currentNode;
+        currentNode = nextNode;
     }
 
-    const next = head.next;
-    head.next = newHead;
-    return reverseListHead(next, head)
+    return newHead;
 }
 
 export function runTests(): void {
@@ -66,7 +72,7 @@ export function runTests(): void {
             lastNode = newNode;
         });
 
-        let output = reverseList(head.next);
+        let output = reverseListIterative(head.next);
         let numbers = [];
         while (output !== null) {
             numbers.push(output.val);
