@@ -5,9 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "coding-practice-problems_449e864a"
+        },
+        {
+            "type": "java",
+            "name": "Java - Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
             "type": "node",
             "request": "launch",
-            "name": "Test Program",
+            "name": "TS - Run Main",
             "program": "${workspaceRoot}/tmp/main.js"
         }
     ]
