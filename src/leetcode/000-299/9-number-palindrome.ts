@@ -38,6 +38,40 @@ function isPalindrome(value: number): boolean {
     return isPalindrome;
 }
 
+// This uses pointers to tenths places rather than altering the number as the algorithm proceeds
+function isPalindromeImproved(value: number): boolean {
+    if (value < 0) {
+        return false;
+    }
+
+    // For a number, the head is the number representing the largest place
+    // and the tail is the number representing the 1s place
+    let headPowerOfTen = Math.floor(Math.log10(value));
+    let tailPowerOfTen = 0;
+    let isPalindrome = true;
+
+    // Once the number has been reduced to a single digit, if it has not been disqualified,
+    // then this must be a palindrome
+    while (headPowerOfTen > tailPowerOfTen) {
+        const headDigit = getDigitAtPowerOfTen(value, headPowerOfTen);
+        const tailDigit = getDigitAtPowerOfTen(value, tailPowerOfTen);
+
+        if (headDigit !== tailDigit) {
+            isPalindrome = false;
+            break;
+        }
+
+        headPowerOfTen = headPowerOfTen - 1;
+        tailPowerOfTen = tailPowerOfTen + 1;
+    }
+
+    return isPalindrome;
+}
+
+function getDigitAtPowerOfTen(value: number, powerOfTen: number): number {
+    return Math.floor(value / Math.pow(10, powerOfTen)) % 10
+}
+
 export function runTests(): void {
     const inputs = [
         0, // true
@@ -49,6 +83,7 @@ export function runTests(): void {
         10301, // true,
         103040301, // true,
         123454321, // true
+
         10, // false
         321, // false
         -111, // false
@@ -62,7 +97,7 @@ export function runTests(): void {
     ];
 
     inputs.forEach(input => {
-        const output = isPalindrome(input);
+        const output = isPalindromeImproved(input);
         console.log(output);
     });
 }
