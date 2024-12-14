@@ -129,7 +129,7 @@ export function runTests(): void {
             [-1, 3, 8, 2, 9, 5],
             [4, 1, 2, 10, 5, 20],
             24
-        ], // [3,20] or [5,20] depending on implmentation
+        ], // [3,20] or [5,20] depending on implementation
         [
             [10, 3], // 5,2
             [3, 5], // 2,0
