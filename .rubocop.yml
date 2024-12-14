@@ -1,0 +1,16 @@
+Layout/LineLength:
+  Max: 100
+Layout/EndOfLine:
+  EnforcedStyle: lf
+Metrics/BlockLength:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Layout/ElseAlignment:
+  Enabled: false
+Lint/EndAlignment:
+  EnforcedStyleAlignWith: variable
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
